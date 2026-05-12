@@ -22,14 +22,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import attendance.presentation.ViewModels.AttendanceViewModel
+import attendance.data.DI.DaggerAppComponent
 import com.example.sampleapp.ui.theme.SampleAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val vm = AttendanceViewModel()
+        val component = DaggerAppComponent.create()
+        val vm = component.getAttendanceVM()
         vm.fetchUserAttendance()
         setContent {
             SampleAppTheme {

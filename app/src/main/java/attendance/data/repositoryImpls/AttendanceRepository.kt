@@ -1,12 +1,14 @@
 package attendance.data.repositoryImpls
 
+import attendance.data.DI.RetrofitInstance
 import attendance.data.mappers.toEntity
+import attendance.data.routers.ApiService
 import attendance.domain.entities.AttendanceEntity
 import attendance.domain.repositoryInterfaces.AttendanceRepositoryInterface
+import javax.inject.Inject
 
-class AttendanceRepository: AttendanceRepositoryInterface {
+class AttendanceRepository @Inject constructor( private val api: ApiService): AttendanceRepositoryInterface {
     override suspend fun getAttendance(): AttendanceEntity {
-        return RetrofitInstance.api.getAttendance().toEntity()
+        return api.getAttendance().toEntity()
     }
-
 }
