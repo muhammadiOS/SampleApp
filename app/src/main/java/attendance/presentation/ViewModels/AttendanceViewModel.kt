@@ -1,26 +1,33 @@
 package attendance.presentation.ViewModels
-import attendance.data.DI.RetrofitInstance
+import androidx.lifecycle.ViewModel
+import attendance.domain.entities.AttendanceEntity
 import kotlinx.coroutines.*
+import androidx.lifecycle.viewModelScope
 
 
 import attendance.domain.usecases.AttendanceUseCase
+import common.UIState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class AttendanceViewModel @Inject constructor(
-    private val  attendanceUseCase: AttendanceUseCase)  {
+class AttendanceViewModel  @Inject constructor(
+    private val  attendanceUseCase: AttendanceUseCase) : ViewModel()  {
 
-    fun fetchUserAttendance() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val attendance = attendanceUseCase.getAttendance()
+    private val _state = MutableStateFlow<UIState<AttendanceEntity>>(UIState.Idle)
+    val state: StateFlow<UIState<AttendanceEntity>> = _state
 
-                withContext(Dispatchers.Main) {
-                    println(attendance)
-                }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
+     fun fetchUserAttendance() {
+         viewModelScope.launch {
+             _state.emit(UIState.Loading(true))
+             try {
+                 val entity = attendanceUseCase.getAttendance()
+                 _state.emit(UIState.Success(entity))
+             } catch (e: Exception) {
+                 _state.emit(UIState.Error(e.message ?: "some thing went wrong"))
+             } finally {
+                 _state.emit(UIState.Loading(false))
+             }
+         }
     }
 }
