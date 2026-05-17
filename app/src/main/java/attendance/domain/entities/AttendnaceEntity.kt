@@ -11,7 +11,33 @@ data class AttendanceEntity (
     val latenessAndShortnessCount: String,
     val absencesCount: String,
     val attendanceCounts: AttendanceCounts
-)
+) {
+    companion object  {
+        fun dummy(): AttendanceEntity {
+            return AttendanceEntity(
+                message = Message(
+                    type = "",
+                    description = "description"
+                ),
+                punctualityPercentage = "90",
+                hoursWorked = "200",
+                workedHoursPercentage = "80",
+                lateness = "1",
+                shortness = "2",
+                outOfStcTime = "3",
+                latenessAndShortnessCount = "4",
+                absencesCount = "5",
+                attendanceCounts = AttendanceCounts(
+                    duration0_20 = 20,
+                    duration21_60 = 60,
+                    duration60Plus = 70,
+                    abscense = 6,
+                    outOfStc = 7
+                )
+            )
+        }
+    }
+}
 
 data class AttendanceCounts (
     val duration0_20: Long,

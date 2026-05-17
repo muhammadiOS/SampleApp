@@ -19,14 +19,12 @@ class AttendanceViewModel  @Inject constructor(
 
      fun fetchUserAttendance() {
          viewModelScope.launch {
-             _state.emit(UIState.Loading(true))
+             _state.emit(UIState.Loading)
              try {
                  val entity = attendanceUseCase.getAttendance()
                  _state.emit(UIState.Success(entity))
              } catch (e: Exception) {
                  _state.emit(UIState.Error(e.message ?: "some thing went wrong"))
-             } finally {
-                 _state.emit(UIState.Loading(false))
              }
          }
     }
