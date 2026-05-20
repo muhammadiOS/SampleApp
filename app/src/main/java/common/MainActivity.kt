@@ -1,4 +1,4 @@
-package attendance.presentation.view
+package common
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,23 +8,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import attendance.presentation.view.AttendanceScreen
 import common.theme.SampleAppTheme
 
-class AttendanceActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SampleAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
-                    AttendanceScreen(
-                        modifier = Modifier
-                            .padding(paddingValues)
-                    )
-                }
-            }
+            AppNavHost()
         }
     }
 }
-
-

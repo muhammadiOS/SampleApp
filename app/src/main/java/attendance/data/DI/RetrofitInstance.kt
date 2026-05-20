@@ -3,6 +3,7 @@ package attendance.data.DI
 import attendance.data.repositoryImpls.AttendanceRepository
 import attendance.data.routers.ApiService
 import attendance.domain.repositoryInterfaces.AttendanceRepositoryInterface
+import attendance.presentation.ViewModels.AttendanceRowViewModel
 import attendance.presentation.ViewModels.AttendanceViewModel
 import common.CurlInterceptor
 import dagger.Component
@@ -69,4 +70,5 @@ class AttendanceRepoModule {
 @Component(modules = [RetrofitInstance::class, AttendanceRepoModule::class])
 interface AppComponent {
     fun getAttendanceVM(): AttendanceViewModel
+    fun getAttendanceRowVM(): AttendanceRowViewModel
 }

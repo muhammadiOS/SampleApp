@@ -30,11 +30,14 @@ import attendance.domain.entities.AttendanceEntity
 import attendance.presentation.ViewModels.AttendanceViewModel
 import common.UIState
 import common.theme.SampleAppTheme
-import androidx.compose.ui.Alignment.Companion
+import androidx.navigation.NavHostController
 
 @Composable
-fun AttendanceScreen(modifier: Modifier,
-                     viewModel: AttendanceViewModel = remember { DaggerAppComponent.create().getAttendanceVM() }) {
+fun AttendanceScreen(
+    modifier: Modifier,
+    viewModel: AttendanceViewModel = remember { DaggerAppComponent.create().getAttendanceVM() },
+    navController: NavHostController
+) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
         viewModel.fetchUserAttendance()
@@ -42,27 +45,40 @@ fun AttendanceScreen(modifier: Modifier,
     when (val currentState = state) {
         UIState.Idle -> Unit
         UIState.Loading -> {
-            LoadShimmer(modifier =  modifier)
+            LoadShimmer(modifier = modifier)
         }
+
         is UIState.Success -> {
-            AttendanceList(modifier =  modifier,
-                entity = currentState.response)
+            AttendanceList(
+                modifier = modifier,
+                entity = currentState.response, 
+                navController = navController
+            )
         }
+
         is UIState.Error -> {
-            LoadError(modifier = modifier,
-                message = currentState.message)
+            LoadError(
+                modifier = modifier,
+                message = currentState.message
+            )
         }
     }
 }
 
 @Composable
 fun LoadError(modifier: Modifier, message: String) {
-    Box(modifier = modifier.padding(16.dp).fillMaxSize(),
-        contentAlignment = Alignment.Center) {
-        Text(text = message,
+    Box(
+        modifier = modifier
+            .padding(16.dp)
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = message,
             color = Color.Red,
             textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold)
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
@@ -163,9 +179,13 @@ fun LoadShimmer(modifier: Modifier) {
 }
 
 @Composable
-fun AttendanceList(modifier: Modifier, entity: AttendanceEntity) {
-    Column(modifier = modifier.padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)) {
+fun AttendanceList(modifier: Modifier,
+                   entity: AttendanceEntity,
+                   navController: NavHostController) {
+    Column(
+        modifier = modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
         AttendanceHeader()
         InfoBanner(message = entity.message.description)
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -184,16 +204,22 @@ fun AttendanceList(modifier: Modifier, entity: AttendanceEntity) {
                 )
             }
         }
-        Row(Modifier.height(IntrinsicSize.Min),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+        Row(
+            Modifier.height(IntrinsicSize.Min),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Box(modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()) {
                 InfoCard(
                     title = "lateness",
                     value = entity.lateness,
                     times = entity.lateness
                 )
             }
-            Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+            Box(modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()) {
                 InfoCard(
                     title = "shortness",
                     value = entity.shortness,
@@ -201,16 +227,22 @@ fun AttendanceList(modifier: Modifier, entity: AttendanceEntity) {
                 )
             }
         }
-        Row(Modifier.height(IntrinsicSize.Min),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+        Row(
+            Modifier.height(IntrinsicSize.Min),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Box(modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()) {
                 InfoCard(
                     title = "out of stc time",
                     value = entity.outOfStcTime,
                     times = entity.outOfStcTime
                 )
             }
-            Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+            Box(modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()) {
                 InfoCard(
                     title = "half day shortness",
                     value = entity.shortness,
@@ -218,22 +250,32 @@ fun AttendanceList(modifier: Modifier, entity: AttendanceEntity) {
                 )
             }
         }
-        Row(Modifier.height(IntrinsicSize.Min),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+        Row(
+            Modifier.height(IntrinsicSize.Min),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Box(modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()) {
                 StatCard(
                     title = "lateness/shortness",
                     value = entity.latenessAndShortnessCount
                 )
             }
-            Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+            Box(modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()) {
                 StatCard(
                     title = "absence",
                     value = entity.absencesCount
                 )
             }
         }
-        AttendanceRow()
+        AttendanceRow(
+            onClick = {
+                navController.navigate("Details")
+            }
+        )
     }
 }
 
@@ -242,9 +284,12 @@ fun AttendanceList(modifier: Modifier, entity: AttendanceEntity) {
 fun AttendanceScreenPreview() {
     SampleAppTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
-            AttendanceList(modifier = Modifier
-                .padding(paddingValues),
-                entity = AttendanceEntity.dummy())
+            AttendanceList(
+                modifier = Modifier
+                    .padding(paddingValues),
+                entity = AttendanceEntity.dummy(),
+                navController = TODO()
+            )
 //            LoadError(modifier = Modifier.padding(paddingValues),
 //                message = "dummy text Connected to the target VM, address: 'localhost:54318', transport: 'socket'")
 

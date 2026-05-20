@@ -14,15 +14,31 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import attendance.data.DI.DaggerAppComponent
+import attendance.presentation.ViewModels.AttendanceNavigationEvents
+import attendance.presentation.ViewModels.AttendanceRowViewModel
+import attendance.presentation.ViewModels.AttendanceViewModel
 
 @Composable
-fun AttendanceRow() {
+fun AttendanceRow(viewModel: AttendanceRowViewModel = remember { DaggerAppComponent.create().getAttendanceRowVM() },
+                  onClick: () -> Unit) {
+
+    LaunchedEffect(Unit) {
+        viewModel.navigation.collect {
+            when(it) {
+                AttendanceNavigationEvents.OpenDetails -> onClick()
+            }
+        }
+    }
+
     Card(
         onClick = {
-            print("next")
+            viewModel.onClick()
         },
         shape = RoundedCornerShape(12.dp)
     ) {
@@ -47,5 +63,7 @@ fun AttendanceRow() {
 @Preview(showBackground = true)
 @Composable
 fun AttendanceRowPreview() {
-    AttendanceRow()
+    AttendanceRow(
+        onClick = {  }
+    )
 }

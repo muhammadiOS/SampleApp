@@ -13,6 +13,7 @@ retrofit = "2.9.0"
 dagger = "2.51"
 lifecycle = "2.8.4"
 interceptor = "4.12.0"
+navigationComposeAndroid = "2.9.8"
 
 
 [libraries]
@@ -36,6 +37,7 @@ dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "interceptor" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-navigation-compose-android = { group = "androidx.navigation", name = "navigation-compose-android", version.ref = "navigationComposeAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
