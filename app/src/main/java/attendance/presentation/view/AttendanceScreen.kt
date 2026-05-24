@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,13 +29,12 @@ import attendance.domain.entities.AttendanceEntity
 import attendance.presentation.ViewModels.AttendanceViewModel
 import common.UIState
 import common.theme.SampleAppTheme
-import androidx.navigation.NavHostController
 
 @Composable
 fun AttendanceScreen(
     modifier: Modifier,
-    navController: NavHostController
-) {
+    onGoToDetails: (userId: Int) -> Unit)  {
+
     val viewModel: AttendanceViewModel = hiltViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
@@ -51,8 +49,8 @@ fun AttendanceScreen(
         is UIState.Success -> {
             AttendanceList(
                 modifier = modifier,
-                entity = currentState.response, 
-                navController = navController
+                entity = currentState.response,
+                onGoToDetails = onGoToDetails
             )
         }
 
@@ -181,7 +179,7 @@ fun LoadShimmer(modifier: Modifier) {
 @Composable
 fun AttendanceList(modifier: Modifier,
                    entity: AttendanceEntity,
-                   navController: NavHostController) {
+                   onGoToDetails: (userId: Int) -> Unit) {
     Column(
         modifier = modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -272,9 +270,7 @@ fun AttendanceList(modifier: Modifier,
             }
         }
         AttendanceRow(
-            onClick = {
-                navController.navigate("Details")
-            }
+            onClick = onGoToDetails
         )
     }
 }
@@ -288,7 +284,7 @@ fun AttendanceScreenPreview() {
                 modifier = Modifier
                     .padding(paddingValues),
                 entity = AttendanceEntity.dummy(),
-                navController = TODO()
+                onGoToDetails = {}
             )
 //            LoadError(modifier = Modifier.padding(paddingValues),
 //                message = "dummy text Connected to the target VM, address: 'localhost:54318', transport: 'socket'")

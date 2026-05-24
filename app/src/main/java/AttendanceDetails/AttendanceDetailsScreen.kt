@@ -18,13 +18,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
 @Composable
-fun AttendanceDetailsScreen(navController: NavHostController) {
+fun AttendanceDetailsScreen(userId: Int,
+                            onBack: () -> Unit) {
     Column ( modifier = Modifier.fillMaxSize()) {
         Row(modifier = Modifier.height(56.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(
-                onClick = {
-                    navController.popBackStack()
-                }
+                onClick = onBack
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,

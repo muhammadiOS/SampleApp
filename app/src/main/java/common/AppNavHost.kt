@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import attendance.presentation.view.AttendanceScreen
 import common.theme.SampleAppTheme
 
@@ -25,20 +27,30 @@ fun AppNavHost() {
             SampleAppTheme {
                 Scaffold() { paddingValues ->
                     AttendanceScreen(
-                        modifier =  Modifier.Companion.fillMaxSize()
+                        modifier =  Modifier.Companion
+                            .fillMaxSize()
                             .padding(paddingValues),
-                        navController = navController
+                        onGoToDetails = { userId ->
+                            navController.navigate("details/$userId")
+                        }
                     )
                 }
             }
         }
 
-        composable("details") {
+        composable(route = "details/{id}",
+            arguments = listOf(
+                navArgument("id") { type = NavType.IntType }
+            ))  { backStackEntry ->
+
+            val id = backStackEntry.arguments?.getInt("id") ?: 0
+
             AttendanceDetailsScreen(
-                navController = navController
+                userId = id,
+                onBack = {
+                    navController.popBackStack()
+                }
             )
         }
     }
 }
-
-
