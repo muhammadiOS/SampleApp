@@ -19,15 +19,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import attendance.data.DI.DaggerAppComponent
+import androidx.hilt.navigation.compose.hiltViewModel
 import attendance.presentation.ViewModels.AttendanceNavigationEvents
 import attendance.presentation.ViewModels.AttendanceRowViewModel
-import attendance.presentation.ViewModels.AttendanceViewModel
 
 @Composable
-fun AttendanceRow(viewModel: AttendanceRowViewModel = remember { DaggerAppComponent.create().getAttendanceRowVM() },
-                  onClick: () -> Unit) {
 
+fun AttendanceRow(onClick: () -> Unit) {
+    val viewModel: AttendanceRowViewModel = hiltViewModel()
     LaunchedEffect(Unit) {
         viewModel.navigation.collect {
             when(it) {

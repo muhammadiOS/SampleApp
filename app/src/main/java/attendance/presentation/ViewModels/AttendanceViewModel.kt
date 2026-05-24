@@ -3,14 +3,14 @@ import androidx.lifecycle.ViewModel
 import attendance.domain.entities.AttendanceEntity
 import kotlinx.coroutines.*
 import androidx.lifecycle.viewModelScope
-
-
 import attendance.domain.usecases.AttendanceUseCase
 import common.UIState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
+@HiltViewModel
 class AttendanceViewModel  @Inject constructor(
     private val  attendanceUseCase: AttendanceUseCase) : ViewModel()  {
 

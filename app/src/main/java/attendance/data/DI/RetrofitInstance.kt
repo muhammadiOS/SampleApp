@@ -3,12 +3,13 @@ package attendance.data.DI
 import attendance.data.repositoryImpls.AttendanceRepository
 import attendance.data.routers.ApiService
 import attendance.domain.repositoryInterfaces.AttendanceRepositoryInterface
-import attendance.presentation.ViewModels.AttendanceRowViewModel
-import attendance.presentation.ViewModels.AttendanceViewModel
 import common.CurlInterceptor
-import dagger.Component
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,6 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 @Module
+@InstallIn(SingletonComponent::class)
 object RetrofitInstance {
 
     private const val BASE_URL =
@@ -59,16 +61,13 @@ object RetrofitInstance {
     }
 }
 
-@Module
-class AttendanceRepoModule {
-    @Provides
-    fun provideAttendanceRepo(api: ApiService): AttendanceRepositoryInterface {
-        return AttendanceRepository(api)
-    }
-}
 
-@Component(modules = [RetrofitInstance::class, AttendanceRepoModule::class])
-interface AppComponent {
-    fun getAttendanceVM(): AttendanceViewModel
-    fun getAttendanceRowVM(): AttendanceRowViewModel
+@Module
+@InstallIn(ViewModelComponent::class)
+abstract class RepositoryModule {
+
+    @Binds
+    abstract fun bindAttendanceRepository (
+        attendanceRepositoryImpl: AttendanceRepository
+    ): AttendanceRepositoryInterface
 }

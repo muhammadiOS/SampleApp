@@ -34,7 +34,9 @@ fun AppNavHost() {
         }
 
         composable("details") {
-            AttendanceDetailsScreen()
+            AttendanceDetailsScreen(
+                navController = navController
+            )
         }
     }
 }

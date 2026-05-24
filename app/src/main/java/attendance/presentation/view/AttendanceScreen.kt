@@ -24,8 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import attendance.data.DI.DaggerAppComponent
 import attendance.domain.entities.AttendanceEntity
 import attendance.presentation.ViewModels.AttendanceViewModel
 import common.UIState
@@ -35,9 +35,9 @@ import androidx.navigation.NavHostController
 @Composable
 fun AttendanceScreen(
     modifier: Modifier,
-    viewModel: AttendanceViewModel = remember { DaggerAppComponent.create().getAttendanceVM() },
     navController: NavHostController
 ) {
+    val viewModel: AttendanceViewModel = hiltViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
         viewModel.fetchUserAttendance()
