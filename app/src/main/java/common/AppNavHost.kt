@@ -21,9 +21,9 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = "Attendance"
+        startDestination = AppRouter.AttendanceScreen.route
     ) {
-        composable("Attendance") {
+        composable(AppRouter.AttendanceScreen.route) {
             SampleAppTheme {
                 Scaffold() { paddingValues ->
                     AttendanceScreen(
@@ -31,14 +31,15 @@ fun AppNavHost() {
                             .fillMaxSize()
                             .padding(paddingValues),
                         onGoToDetails = { userId ->
-                            navController.navigate("details/$userId")
+                            navController.navigate(AppRouter.AttendanceDetailsScreen
+                                .createRoute(userId))
                         }
                     )
                 }
             }
         }
 
-        composable(route = "details/{id}",
+        composable(route = AppRouter.AttendanceDetailsScreen.route,
             arguments = listOf(
                 navArgument("id") { type = NavType.IntType }
             ))  { backStackEntry ->
@@ -54,3 +55,4 @@ fun AppNavHost() {
         }
     }
 }
+

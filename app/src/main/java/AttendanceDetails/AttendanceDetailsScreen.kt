@@ -21,7 +21,8 @@ import androidx.navigation.NavHostController
 fun AttendanceDetailsScreen(userId: Int,
                             onBack: () -> Unit) {
     Column ( modifier = Modifier.fillMaxSize()) {
-        Row(modifier = Modifier.height(56.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(modifier = Modifier.height(56.dp),
+            verticalAlignment = Alignment.CenterVertically) {
             IconButton(
                 onClick = onBack
             ) {
@@ -32,10 +33,11 @@ fun AttendanceDetailsScreen(userId: Int,
             }
         }
 
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Box(modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center) {
 
             Text(
-                text = "Details Screen"
+                text = "Details Screen for user ID: $userId"
             )
         }
     }
