@@ -1,6 +1,5 @@
 package attendance.data.repositoryImpls
 
-import attendance.data.DI.RetrofitInstance
 import attendance.data.mappers.toEntity
 import attendance.data.routers.ApiService
 import attendance.domain.entities.AttendanceEntity

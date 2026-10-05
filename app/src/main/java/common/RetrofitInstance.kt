@@ -1,17 +1,14 @@
-package attendance.data.DI
+package common
 
-import attendance.data.repositoryImpls.AttendanceRepository
 import attendance.data.routers.ApiService
-import attendance.domain.repositoryInterfaces.AttendanceRepositoryInterface
-import common.CurlInterceptor
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import profile.data.routers.UserInfoSectionsService
+import profile.data.routers.UserMainInfoService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -59,15 +56,18 @@ object RetrofitInstance {
     fun provideApi(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
+
+
+    @Provides
+    fun userMainInfoService(retrofit: Retrofit): UserMainInfoService {
+        return retrofit.create(UserMainInfoService::class.java)
+    }
+
+    @Provides
+    fun userInfoSectionsService(retrofit: Retrofit): UserInfoSectionsService {
+        return retrofit.create(UserInfoSectionsService::class.java)
+    }
+
 }
 
 
-@Module
-@InstallIn(ViewModelComponent::class)
-abstract class RepositoryModule {
-
-    @Binds
-    abstract fun bindAttendanceRepository (
-        attendanceRepositoryImpl: AttendanceRepository
-    ): AttendanceRepositoryInterface
-}
