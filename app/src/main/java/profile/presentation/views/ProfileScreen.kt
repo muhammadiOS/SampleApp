@@ -23,7 +23,7 @@ fun ProfileScreen(
 
         ProfileHeader()
 
-        ProfileGrid(onSectionClick = onSectionClick)
+        ProfileGrid(onSectionClick = onSectionClick, modifier = modifier)
     }
 }
 

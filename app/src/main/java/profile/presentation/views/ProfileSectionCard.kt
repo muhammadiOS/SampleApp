@@ -193,6 +193,6 @@ private fun getSectionIcon(iconName: String): ImageVector {
 )
 @Composable
 private fun PreviewView() {
-    ProfileSectionCard(state = UIState.Loading,
+    ProfileSectionCard(state = UIState.Error(message = "Error"),
         onClick = {})
 }

@@ -18,6 +18,7 @@ hilt = "2.51.1"
 ksp = "2.0.21-1.0.27"
 hilt-navigation-compose = "1.2.0"
 coil = "3.0.4"
+contentpager = "1.0.0"
 
 
 [libraries]
@@ -44,6 +45,7 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+androidx-contentpager = { group = "androidx.contentpager", name = "contentpager", version.ref = "contentpager" }
 
 
 [plugins]
