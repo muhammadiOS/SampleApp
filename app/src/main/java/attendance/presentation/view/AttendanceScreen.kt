@@ -32,7 +32,7 @@ import common.theme.SampleAppTheme
 
 @Composable
 fun AttendanceScreen(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onGoToDetails: (userId: Int) -> Unit)  {
 
     val viewModel: AttendanceViewModel = hiltViewModel()

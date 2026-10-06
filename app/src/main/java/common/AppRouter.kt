@@ -2,7 +2,10 @@ package common
 
 sealed class AppRouter(val route: String) {
     data object ProfileScreen :
-        AppRouter("profile_screen")
+        AppRouter("profile_screen/{userId}") {
+        fun createRoute(id: Int) =
+            "profile_screen/$id"
+    }
 
     data object AttendanceScreen :
         AppRouter("attendance_screen")

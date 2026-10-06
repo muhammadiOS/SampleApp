@@ -20,6 +20,8 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,15 +33,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import profile.domain.entities.UserMainInfoEntity
+import profile.presentation.viewModels.ProfileHeaderViewModel
 
-//import coil.compose.AsyncImage
 
 @Composable
-fun ProfileHeader(
-    mainInfo: UserMainInfoEntity?,
-) {
+fun ProfileHeader() {
+
+    var mainInfoEntity: UserMainInfoEntity? = null
+    val viewModel: ProfileHeaderViewModel = hiltViewModel()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    LaunchedEffect(Unit) {
+        viewModel.getUserMainInfo()
+    }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -112,7 +121,7 @@ fun ProfileHeader(
         ) {
 
             ProfileAvatar(
-                imageUrl = mainInfo?.imageUrl,
+                imageUrl = mainInfoEntity?.imageUrl,
                 modifier = Modifier
                     .padding(start = 18.dp)
                     .offset(y = (-102).dp)
@@ -133,7 +142,7 @@ fun ProfileHeader(
                 ) {
 
                     Text(
-                        text = mainInfo?.name.orEmpty(),
+                        text = mainInfoEntity?.name.orEmpty(),
                         color = Color(0xFF252B33),
                         fontSize = 27.sp,
                         fontWeight = FontWeight.Bold
@@ -150,7 +159,7 @@ fun ProfileHeader(
                 )
 
                 Text(
-                    text = mainInfo?.name.orEmpty(),
+                    text = mainInfoEntity?.name.orEmpty(),
                     color = Color(0xFF4C079B),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
@@ -161,7 +170,7 @@ fun ProfileHeader(
                 )
 
                 Text(
-                    text = mainInfo?.jobTitle.orEmpty(),
+                    text = mainInfoEntity?.jobTitle.orEmpty(),
                     color = Color(0xFF94A0AA),
                     fontSize = 17.sp
                 )
@@ -241,10 +250,8 @@ private fun ProfileAvatar(
     showSystemUi = true,
 )
 @Composable
-private fun previewView() {
-    ProfileHeader(
-        mainInfo = UserMainInfoEntity.dummy()
-    )
+private fun PreviewView() {
+    ProfileHeader()
 }
 
 

@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import attendance.presentation.view.AttendanceScreen
 import common.theme.SampleAppTheme
+import profile.presentation.views.ProfileScreen
 
 @Composable
 fun AppNavHost() {
@@ -21,22 +22,28 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = AppRouter.AttendanceScreen.route
+        startDestination = AppRouter.ProfileScreen.createRoute(123)
     ) {
-        composable(AppRouter.AttendanceScreen.route) {
+        composable(AppRouter.ProfileScreen.route,
+            arguments = listOf(
+                navArgument("userId") { type = NavType.IntType }
+            )) {
             SampleAppTheme {
                 Scaffold() { paddingValues ->
-                    AttendanceScreen(
-                        modifier =  Modifier.Companion
-                            .fillMaxSize()
-                            .padding(paddingValues),
-                        onGoToDetails = { userId ->
-                            navController.navigate(AppRouter.AttendanceDetailsScreen
-                                .createRoute(userId))
-                        }
-                    )
+                    ProfileScreen(modifier =  Modifier.Companion
+                        .fillMaxSize()
+                        .padding(paddingValues)) { }
                 }
             }
+        }
+
+        composable(AppRouter.AttendanceScreen.route) {
+            AttendanceScreen(
+                onGoToDetails = { userId ->
+                    navController.navigate(AppRouter.AttendanceDetailsScreen
+                        .createRoute(userId))
+                }
+            )
         }
 
         composable(route = AppRouter.AttendanceDetailsScreen.route,
