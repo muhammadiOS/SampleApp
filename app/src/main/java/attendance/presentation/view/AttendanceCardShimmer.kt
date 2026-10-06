@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CardShimmer() {
+fun AttendanceCardShimmer() {
 
     val shimmerColors = listOf(
         Color.LightGray.copy(alpha = 0.6f),
@@ -81,5 +81,5 @@ fun CardShimmer() {
 @Preview(showBackground = true)
 @Composable
 fun CardShimmerPreview() {
-    CardShimmer()
+    AttendanceCardShimmer()
 }

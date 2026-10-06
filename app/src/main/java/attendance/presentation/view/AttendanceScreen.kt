@@ -85,91 +85,91 @@ fun LoadShimmer(modifier: Modifier) {
     Column(modifier = modifier.padding(16.dp)) {
         Row() {
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
             Spacer(modifier = Modifier.width(16.dp))
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
         }
         Spacer(Modifier.height(16.dp))
         Row() {
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
             Spacer(modifier = Modifier.width(16.dp))
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
         }
         Spacer(Modifier.height(16.dp))
         Row() {
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
             Spacer(modifier = Modifier.width(16.dp))
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
         }
         Spacer(Modifier.height(16.dp))
         Row() {
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
             Spacer(modifier = Modifier.width(16.dp))
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
         }
         Spacer(Modifier.height(16.dp))
         Row() {
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
             Spacer(modifier = Modifier.width(16.dp))
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
         }
         Spacer(Modifier.height(16.dp))
         Row() {
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
             Spacer(modifier = Modifier.width(16.dp))
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
         }
         Spacer(Modifier.height(16.dp))
         Row() {
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
             Spacer(modifier = Modifier.width(16.dp))
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
         }
         Spacer(Modifier.height(16.dp))
         Row() {
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
             Spacer(modifier = Modifier.width(16.dp))
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
         }
         Spacer(Modifier.height(16.dp))
         Row() {
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
             Spacer(modifier = Modifier.width(16.dp))
             Box(modifier = Modifier.weight(1f)) {
-                CardShimmer()
+                AttendanceCardShimmer()
             }
         }
         Spacer(Modifier.height(16.dp))
