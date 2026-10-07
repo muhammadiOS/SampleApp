@@ -24,21 +24,34 @@ fun AppNavHost() {
         navController = navController,
         startDestination = AppRouter.ProfileScreen.createRoute(123)
     ) {
-        composable(AppRouter.ProfileScreen.route,
+        composable(
+            AppRouter.ProfileScreen.route,
             arguments = listOf(
                 navArgument("userId") { type = NavType.IntType }
             )) {
             SampleAppTheme {
                 Scaffold() { paddingValues ->
-                    ProfileScreen(modifier =  Modifier.Companion
-                        .fillMaxSize()
-                        .padding(paddingValues)) { }
+                    ProfileScreen(
+                        modifier = Modifier.Companion
+                            .fillMaxSize()
+                            .padding(paddingValues)
+                    ) { section ->
+                        when (section.title.lowercase()) {
+                            "salary" -> navController.navigate(AppRouter.SalaryScreen.route)
+                            "benefits" -> navController.navigate(AppRouter.BenefitsScreen.route)
+                            "attendance" -> navController.navigate(AppRouter.AttendanceScreen.route)
+                            else -> "unit"
+                        }
+                    }
                 }
             }
         }
 
         composable(AppRouter.AttendanceScreen.route) {
             AttendanceScreen(
+                onBack = {
+                    navController.popBackStack()
+                },
                 onGoToDetails = { userId ->
                     navController.navigate(AppRouter.AttendanceDetailsScreen
                         .createRoute(userId))

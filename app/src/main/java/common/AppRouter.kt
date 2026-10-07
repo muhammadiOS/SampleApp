@@ -1,5 +1,7 @@
 package common
 
+import android.R
+
 sealed class AppRouter(val route: String) {
     data object ProfileScreen :
         AppRouter("profile_screen/{userId}") {
@@ -15,7 +17,6 @@ sealed class AppRouter(val route: String) {
             fun createRoute(id: Int) =
                 "attendance_details_screen/$id"
         }
-
     data object SalaryScreen :
         AppRouter("salary_screen")
 

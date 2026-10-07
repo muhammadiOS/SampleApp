@@ -28,13 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun AttendanceHeader() {
     Column {
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "summary",
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
         HorizontalDivider(
             modifier = Modifier.fillMaxWidth(),
             thickness = 0.5.dp,

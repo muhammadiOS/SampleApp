@@ -1,5 +1,6 @@
 package attendance.presentation.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +12,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,6 +38,7 @@ import common.theme.SampleAppTheme
 @Composable
 fun AttendanceScreen(
     modifier: Modifier = Modifier,
+    onBack: () -> Unit,
     onGoToDetails: (userId: Int) -> Unit)  {
 
     val viewModel: AttendanceViewModel = hiltViewModel()
@@ -40,27 +46,51 @@ fun AttendanceScreen(
     LaunchedEffect(Unit) {
         viewModel.fetchUserAttendance()
     }
-    when (val currentState = state) {
-        UIState.Idle -> Unit
-        UIState.Loading -> {
-            LoadShimmer(modifier = modifier)
-        }
+    Column ( modifier = Modifier.fillMaxSize()) {
+        Spacer(modifier = Modifier.height(40.dp))
+        Row(modifier = Modifier.height(24.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            IconButton(
+                onClick = onBack
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back"
+                )
+            }
 
-        is UIState.Success -> {
-            AttendanceList(
-                modifier = modifier,
-                entity = currentState.response,
-                onGoToDetails = onGoToDetails
+            Text(
+                text = "summary",
+                style = MaterialTheme.typography.titleMedium,
+                //modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
+        Box(modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.TopCenter) {
+            when (val currentState = state) {
+                UIState.Idle -> Unit
+                UIState.Loading -> {
+                    LoadShimmer(modifier = modifier)
+                }
 
-        is UIState.Error -> {
-            LoadError(
-                modifier = modifier,
-                message = currentState.message
-            )
+                is UIState.Success -> {
+                    AttendanceList(
+                        modifier = modifier,
+                        entity = currentState.response,
+                        onGoToDetails = onGoToDetails
+                    )
+                }
+
+                is UIState.Error -> {
+                    LoadError(
+                        modifier = modifier,
+                        message = currentState.message
+                    )
+                }
+            }
         }
     }
+
 }
 
 @Composable
@@ -278,17 +308,14 @@ fun AttendanceList(modifier: Modifier,
 @Preview(showBackground = true)
 @Composable
 fun AttendanceScreenPreview() {
-    SampleAppTheme {
-        Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
-            AttendanceList(
-                modifier = Modifier
-                    .padding(paddingValues),
-                entity = AttendanceEntity.dummy(),
-                onGoToDetails = {}
-            )
-//            LoadError(modifier = Modifier.padding(paddingValues),
+
+
+//    AttendanceList(
+//        modifier = Modifier,
+//        entity = AttendanceEntity.dummy(),
+//        onGoToDetails = {}
+//    )
+    //            LoadError(modifier = Modifier.padding(paddingValues),
 //                message = "dummy text Connected to the target VM, address: 'localhost:54318', transport: 'socket'")
 
-        }
-    }
 }
