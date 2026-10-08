@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import profile.data.routers.UserInfoSectionsService
 import profile.data.routers.UserMainInfoService
+import salary.data.routers.EarningService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -66,6 +67,12 @@ object RetrofitInstance {
     @Provides
     fun userInfoSectionsService(retrofit: Retrofit): UserInfoSectionsService {
         return retrofit.create(UserInfoSectionsService::class.java)
+    }
+
+
+    @Provides
+    fun EarningService(retrofit: Retrofit): EarningService {
+        return retrofit.create(EarningService::class.java)
     }
 
 }
