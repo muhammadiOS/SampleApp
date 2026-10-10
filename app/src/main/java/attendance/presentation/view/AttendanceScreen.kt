@@ -33,7 +33,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import attendance.domain.entities.AttendanceEntity
 import attendance.presentation.ViewModels.AttendanceViewModel
 import common.UIState
-import common.theme.SampleAppTheme
 
 @Composable
 fun AttendanceScreen(
@@ -62,7 +61,6 @@ fun AttendanceScreen(
             Text(
                 text = "summary",
                 style = MaterialTheme.typography.titleMedium,
-                //modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
         Box(modifier = Modifier.fillMaxSize(),

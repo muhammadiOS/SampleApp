@@ -24,7 +24,7 @@ class EarningViewModel @Inject constructor(
         MutableStateFlow<UIState<EarningEntity>>(UIState.Idle)
     val state = _state
 
-    fun getUserInfoSections() {
+    fun getUserEarning() {
         viewModelScope.launch {
             _state.emit(UIState.Loading)
             try {

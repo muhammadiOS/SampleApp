@@ -14,6 +14,7 @@ import androidx.navigation.navArgument
 import attendance.presentation.view.AttendanceScreen
 import common.theme.SampleAppTheme
 import profile.presentation.views.ProfileScreen
+import salary.presentation.view.EarningScreen
 
 @Composable
 fun AppNavHost() {
@@ -37,14 +38,26 @@ fun AppNavHost() {
                             .padding(paddingValues)
                     ) { section ->
                         when (section.title.lowercase()) {
-                            "salary" -> navController.navigate(AppRouter.SalaryScreen.route)
-                            "benefits" -> navController.navigate(AppRouter.BenefitsScreen.route)
+                            "benefits" -> navController.navigate(
+                                AppRouter.BenefitsScreen.createRoute(123)
+                            )
                             "attendance" -> navController.navigate(AppRouter.AttendanceScreen.route)
                             else -> "unit"
                         }
                     }
                 }
             }
+        }
+
+        composable(
+            route = AppRouter.BenefitsScreen.route,
+            arguments = listOf(
+                navArgument("userId") {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            EarningScreen()
         }
 
         composable(AppRouter.AttendanceScreen.route) {
