@@ -12,11 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import attendance.domain.entities.AttendanceEntity
 import attendance.presentation.ViewModels.AttendanceViewModel
+import common.AppHeader
 import common.UIState
 
 @Composable
@@ -46,23 +42,7 @@ fun AttendanceScreen(
         viewModel.fetchUserAttendance()
     }
     Column ( modifier = Modifier.fillMaxSize()) {
-        Spacer(modifier = Modifier.height(40.dp))
-        Row(modifier = Modifier.height(24.dp),
-            verticalAlignment = Alignment.CenterVertically) {
-            IconButton(
-                onClick = onBack
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back"
-                )
-            }
-
-            Text(
-                text = "summary",
-                style = MaterialTheme.typography.titleMedium,
-            )
-        }
+        AppHeader(title = "summary", onBack = onBack)
         Box(modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.TopCenter) {
             when (val currentState = state) {

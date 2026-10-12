@@ -15,38 +15,28 @@ import androidx.compose.ui.graphics.Color
 
 fun Modifier.shimmer(): Modifier = composed {
 
-    val transition = rememberInfiniteTransition(
-        label = "shimmer"
+    val shimmerColors = listOf(
+        Color.LightGray.copy(alpha = 0.6f),
+        Color.LightGray.copy(alpha = 0.2f),
+        Color.LightGray.copy(alpha = 0.6f)
     )
 
-    val translateX = transition.animateFloat(
-        initialValue = -500f,
-        targetValue = 500f,
+    val transition = rememberInfiniteTransition(label = "")
+    val translateAnim = transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1000f,
         animationSpec = infiniteRepeatable(
-            animation = tween(
-                durationMillis = 1000,
-                easing = LinearEasing
-            ),
+            animation = tween(durationMillis = 1000),
             repeatMode = RepeatMode.Restart
         ),
-        label = "shimmer_translate"
+        label = ""
     )
 
-    val shimmerBrush = Brush.linearGradient(
-        colors = listOf(
-            Color(0xFFE5E7EB),
-            Color(0xFFF7F7F7),
-            Color(0xFFE5E7EB)
-        ),
-        start = Offset(
-            x = translateX.value,
-            y = 0f
-        ),
-        end = Offset(
-            x = translateX.value + 200f,
-            y = 0f
-        )
+    val brush = Brush.linearGradient(
+        colors = shimmerColors,
+        start = Offset.Zero,
+        end = Offset(x = translateAnim.value, y = translateAnim.value)
     )
 
-    background(shimmerBrush)
+    background(brush)
 }

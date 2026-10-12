@@ -57,7 +57,11 @@ fun AppNavHost() {
                 }
             )
         ) {
-            EarningScreen()
+            EarningScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable(AppRouter.AttendanceScreen.route) {

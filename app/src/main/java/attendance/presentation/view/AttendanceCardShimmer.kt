@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import common.shimmer
 
 @Composable
 fun AttendanceCardShimmer() {
@@ -60,7 +61,7 @@ fun AttendanceCardShimmer() {
                     .fillMaxWidth(0.5f)
                     .height(14.dp)
                     .clip(RoundedCornerShape(4.dp))
-                    .background(brush)
+                    .shimmer(),
             )
 
             Spacer(modifier = Modifier.height(12.dp))
